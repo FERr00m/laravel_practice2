@@ -25,7 +25,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        //Gate::authorize('viewAny');
+        Gate::authorize('viewAny', Event::class);
 
         $query = $this->loadRelationships(Event::query());
 
@@ -41,8 +41,7 @@ class EventController extends Controller
     public function store(Request $request, Event $event)
     {
 
-        Gate::authorize('create', $event);
-        //Gate::authorize('create-event', $event);
+        Gate::authorize('create', Event::class);
 
         $event = Event::create([
             ...$request->validate([
@@ -62,6 +61,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
+        Gate::authorize('view', $event);
         return new EventResource($this->loadRelationships($event));
     }
 

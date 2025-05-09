@@ -10,27 +10,23 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+// Public routes
+Route::apiResource('events', EventController::class)
+    ->only(['index', 'show']);
+Route::apiResource('events.attendees', AttendeeController::class)
+    ->scoped()
+    ->only(['index', 'show']);
 
-// Публичные маршруты
-Route::middleware('throttle:60,1')->group(function () {
-    Route::get('/events', [EventController::class, 'index']);
-    Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
+// Protected routes
+Route::apiResource('events', EventController::class)
+    ->only(['store', 'update', 'destroy'])
+    ->middleware(['auth:sanctum', 'throttle:api']);
 
-    Route::get('/events/{event}/attendees', [AttendeeController::class, 'index']);
-    Route::get('/events/{event}/attendees/{attendee}', [AttendeeController::class, 'show']);
-});
-
-Route::middleware('throttle:api')->group(function () {
-    Route::apiResource('events', EventController::class)
-        ->middleware('auth:sanctum')
-        ->except(['index', 'show']);
-
-    Route::apiResource('events.attendees', AttendeeController::class)
-        ->scoped()
-        ->middleware('auth:sanctum')
-        ->except(['index', 'show']);
-});
-
+// Protected routes
+Route::apiResource('events.attendees', AttendeeController::class)
+    ->scoped()
+    ->only(['store', 'destroy'])
+    ->middleware(['auth:sanctum', 'throttle:api']);
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])
