@@ -10,12 +10,16 @@
             <div>{{ $work->location }}</div>
         </div>
         <div class="flex space-x-1 text-xs">
-            <x-tag>{{ Str::ucfirst($work->experience) }}</x-tag>
-            <x-tag>{{ $work->category }}</x-tag>
+            <x-tag>
+                <a href="{{ route('works.index', ['experience' => $work->experience]) }}">{{ Str::ucfirst($work->experience) }}</a>
+            </x-tag>
+            <x-tag>
+                <a href="{{ route('works.index', ['category' => $work->category]) }}">{{ $work->category }}</a>
+            </x-tag>
         </div>
     </div>
 
-    <p class="mb-4 text-sm text-slate-500">{!! nl2br(e($work->description)) !!}</p>
+
 
     {{ $slot }}
 </x-card>

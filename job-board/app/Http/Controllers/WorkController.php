@@ -13,8 +13,15 @@ class WorkController extends Controller
     public function index()
     {
         //
+        $filters = request()->only(
+            'search',
+            'min_salary',
+            'max_salary',
+            'experience',
+            'category'
+        );
 
-        return view('work.index', ['works' => Work::all()]);
+        return view('work.index', ['works' => Work::filter($filters)->get()]);
     }
 
     /**

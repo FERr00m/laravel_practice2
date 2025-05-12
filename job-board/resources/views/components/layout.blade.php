@@ -25,7 +25,7 @@
     <title>Document</title>
 </head>
 
-<body class="mx-auto mt-10 max-w-2xl bg-slate-200 text-slate-700">
+<body class="mx-auto mt-10 max-w-2xl bg-slate-200 text-slate-700 bg-gradient-to-r from-indigo-500 from-10% via-sky-200 via-50% to-emerald-200 to-100%">
     {{ $slot }}
 </body>
 
