@@ -21,7 +21,7 @@ class WorkController extends Controller
             'category'
         );
 
-        return view('work.index', ['works' => Work::filter($filters)->get()]);
+        return view('work.index', ['works' => Work::with('employer')->filter($filters)->get()]);
     }
 
     /**
@@ -45,7 +45,10 @@ class WorkController extends Controller
      */
     public function show(Work $work)
     {
-        return view('work.show', compact('work'));
+        return view(
+            'work.show',
+            ['work' => $work->load('employer.works')]  // загрузка нескольких моделей employer и jobs (отношение)
+        );
     }
 
     /**
