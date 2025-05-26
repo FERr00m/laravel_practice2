@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Work;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class WorkController extends Controller
 {
@@ -12,6 +13,7 @@ class WorkController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny', Work::class);
         //
         $filters = request()->only(
             'search',
@@ -45,6 +47,7 @@ class WorkController extends Controller
      */
     public function show(Work $work)
     {
+        Gate::authorize('view', $work);
         return view(
             'work.show',
             ['work' => $work->load('employer.works')]  // загрузка нескольких моделей employer и jobs (отношение)
