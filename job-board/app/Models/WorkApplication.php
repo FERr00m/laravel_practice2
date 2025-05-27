@@ -15,6 +15,7 @@ class WorkApplication extends Model
         'expected_salary',
         'user_id',
         'work_id',
+        'cv_path'
     ];
     public function work(): BelongsTo
     {

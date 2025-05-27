@@ -21,7 +21,7 @@
                 </div>
 
                 <div>
-                    <form method="POST" action="{{ route('my-work-application.destroy', $application->id) }}">
+                    <form method="POST" action="{{ route('my-work-application.destroy', $application) }}">
                         @csrf
                         @method('DELETE')
                         <x-button type="submit">Cancel</x-button>
@@ -30,6 +30,11 @@
             </div>
         </x-job-card>
     @empty
-        no jobs
+        <div class="rounded-md border border-dashed border-slate-300 p-8 bg-slate-100">
+            <div class="text-center font-medium">
+                You dont have applications yet
+            </div>
+        </div>
+
     @endforelse
 </x-layout>

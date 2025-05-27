@@ -25,10 +25,10 @@ class MyWorkApplicationController extends Controller
     }
 
 
-    public function destroy(string $id)
+    public function destroy(WorkApplication $myWorkApplication)
     {
-        WorkApplication::destroy($id);
+        $myWorkApplication->delete();
 
-        return redirect()->route('my-work-application.index')->with('success', 'Work canceled!');
+        return redirect()->back()->with('success', 'Work application canceled!');
     }
 }

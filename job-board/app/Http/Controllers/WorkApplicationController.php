@@ -24,11 +24,19 @@ class WorkApplicationController extends Controller
     public function store(Work $work, Request $request)
     {
         Gate::authorize('apply', $work);
+
+        $validatedData = $request->validate([
+            'expected_salary' => 'required|min:1|max:1000000',
+            'cv' => 'required|file|mimes:pdf|max:2048'
+        ]);
+
+        $file = $request->file('cv');
+        $path = $file->store('cvs', 'private');
+
         $work->workApplications()->create([
             'user_id' => $request->user()->id,
-            ...$request->validate([
-                'expected_salary' => 'required|min:1|max:1000000'
-            ])
+            'expected_salary' => $validatedData['expected_salary'],
+            'cv_path' => $path,
         ]);
 
         return redirect()->route('works.show', $work)
