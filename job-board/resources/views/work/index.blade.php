@@ -49,4 +49,13 @@
             </div>
         </x-job-card>
     @endforeach
+
+    @if($works->count())
+
+        <nav class="mt-4 mb-8">
+            {{ $works->links() }}
+        </nav>
+
+
+    @endif
 </x-layout>

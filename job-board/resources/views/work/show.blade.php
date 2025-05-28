@@ -3,11 +3,14 @@
     <x-job-card :$work>
         <p class="mb-4 text-sm text-slate-500">{!! nl2br(e($work->description)) !!}</p>
 
-        @can('apply', $work)
-            <x-link-button :href="route('works.application.create', $work)">Apply</x-link-button>
-        @else
-            <div class="text-center text-sm font-medium text-slate-500">You already applied to this work</div>
-        @endcan
+        @auth
+            @can('apply', $work)
+                <x-link-button :href="route('works.application.create', $work)">Apply</x-link-button>
+            @else
+                <div class="text-center text-sm font-medium text-slate-500">You already applied to this work</div>
+            @endcan
+        @endauth
+
     </x-job-card>
 
     <x-card class="mb-4">

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\MyWorkApplicationController;
+use App\Http\Controllers\MyWorkController;
 use App\Http\Controllers\WorkApplicationController;
 use App\Http\Controllers\WorkController;
 use Illuminate\Support\Facades\Route;
@@ -22,5 +24,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('my-work-application', MyWorkApplicationController::class)
         ->only(['index', 'destroy']);
+
+    Route::resource('employer', EmployerController::class)
+        ->only(['create', 'store']);
+
+    Route::resource('my-works', MyWorkController::class)
+        ->middleware(\App\Http\Middleware\Employer::class);
 });
 

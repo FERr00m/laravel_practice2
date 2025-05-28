@@ -7,18 +7,16 @@
             @csrf
 
             <div class="mb-8">
-                <label for="email">Email</label>
+                <x-label for="email" :required="true">Email</x-label>
+
                 <x-text-input name="email"/>
-                @error('email')
-                    {{ $message }}
-                @enderror
+
             </div>
             <div class="mb-8">
-                <label for="password">Password</label>
+                <x-label for="password" :required="true">Password</x-label>
+
                 <x-text-input type="password" name="password"/>
-                @error('password')
-                    {{ $message }}
-                @enderror
+
             </div>
 
             <div class="mb-8 flex justify-between">

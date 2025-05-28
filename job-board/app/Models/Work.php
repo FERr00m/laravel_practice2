@@ -15,6 +15,15 @@ class Work extends Model
     /** @use HasFactory<\Database\Factories\JobFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'description',
+        'salary',
+        'location',
+        'category',
+        'experience',
+    ];
+
     public static array $experience = ['entry', 'intermediate', 'senior'];
     public static array $category = [
         'IT',

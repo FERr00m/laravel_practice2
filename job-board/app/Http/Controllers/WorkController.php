@@ -23,7 +23,8 @@ class WorkController extends Controller
             'category'
         );
 
-        return view('work.index', ['works' => Work::with('employer')->filter($filters)->get()]);
+        return view('work.index',
+            ['works' => Work::with('employer')->latest()->filter($filters)->paginate(5)->withQueryString()]);
     }
 
     /**
