@@ -16,7 +16,7 @@ class MyWorkApplicationController extends Controller
                 ->user()
                 ->workApplications()
                 ->with([
-                    'work' => fn($query) => $query->withCount('workApplications')->withAvg('workApplications', 'expected_salary'),
+                    'work' => fn($query) => $query->withCount('workApplications')->withAvg('workApplications', 'expected_salary')->withTrashed(),
                     'work.employer'
                 ])
                 ->latest()

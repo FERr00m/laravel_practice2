@@ -30,5 +30,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('my-works', MyWorkController::class)
         ->middleware(\App\Http\Middleware\Employer::class);
+
+    Route::post('my-works/restore', [MyWorkController::class, 'restore'])->name('my-works.restore');
+    Route::post('my-works/delete-permanently', [MyWorkController::class, 'delete_permanently'])->name('my-works.delete-permanently');
+
 });
 

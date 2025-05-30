@@ -20,6 +20,7 @@ class MyWorkController extends Controller
             ->employer
             ->works()
             ->with(['employer', 'workApplications', 'workApplications.user'])
+            ->withTrashed()
             ->get();
 
         return view('my_work.index', compact('works'));
@@ -78,8 +79,31 @@ class MyWorkController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Work $myWork)
     {
-        //
+
+        $myWork->delete();
+
+        return redirect()->route('my-works.index')->with('success', 'Work deleted');
+    }
+
+    public function restore(Request $request)
+    {
+        Work::withTrashed()
+            ->where('id', $request->only('id'))
+            ->restore();
+
+        return redirect()->route('my-works.index')->with('success', 'Work restored');
+
+    }
+
+    public function delete_permanently(Request $request)
+    {
+        Work::withTrashed()
+            ->where('id', $request->only('id'))
+            ->forceDelete();
+
+        return redirect()->route('my-works.index')->with('success', 'Work deleted permanently');
+
     }
 }
